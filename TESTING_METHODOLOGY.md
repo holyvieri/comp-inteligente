@@ -225,12 +225,19 @@ comp-inteligente/
 
 ### 4.2 Resumo de Execuções
 
-| Teste     | Dimensões | Pop | Ger | Mut  | Configs       | Exec por Config   | Total Gerações por Config |
-| --------- | --------- | --- | --- | ---- | ------------- | ----------------- | ------------------------- |
-| 1         | 10        | 20  | 50  | 0.05 | 2             | 30                | 1.500                     |
-| 2         | 30        | 30  | 100 | 0.05 | 2             | 30                | 3.000                     |
-| 3         | 50        | 50  | 150 | 0.10 | 2             | 30                | 4.500                     |
-| **TOTAL** | -         | -   | -   | -    | **6 configs** | **180 execuções** | **18.000 gerações**       |
+| Teste     | Dimensões | Pop | Ger | Mut  | Config 1 (30 exec) | Config 2 (30 exec) | Ger por Config | Total Ger por Teste |
+| --------- | --------- | --- | --- | ---- | ------------------ | ------------------ | -------------- | ------------------- |
+| 1         | 10        | 20  | 50  | 0.05 | sem_elit           | com_elit           | 1.500          | **3.000**           |
+| 2         | 30        | 30  | 100 | 0.05 | sem_elit           | com_elit           | 3.000          | **6.000**           |
+| 3         | 50        | 50  | 150 | 0.10 | sem_elit           | com_elit           | 4.500          | **9.000**           |
+| **TOTAL** | -         | -   | -   | -    | -                  | -                  | -              | **18.000 gerações** |
+
+**Detalhamento:**
+
+- 30 execuções × 2 configurações × 3 testes = **180 execuções totais**
+- Teste 1: 30 (sem) + 30 (com) = 60 exec × 50 ger = 3.000 ger
+- Teste 2: 30 (sem) + 30 (com) = 60 exec × 100 ger = 6.000 ger
+- Teste 3: 30 (sem) + 30 (com) = 60 exec × 150 ger = 9.000 ger
 
 ---
 
