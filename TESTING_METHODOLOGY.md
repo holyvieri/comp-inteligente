@@ -526,20 +526,6 @@ Devido a N=1 por configuração, **não é possível:**
 - **Escopo limitado:** Conclusões valem apenas para seed=42 (não generalizável a todos os seeds)
 - **Amostra pequena:** N=1 por configuração (insuficiente para rigor científico total)
 
-### Como Apresentar em Artigo
-
-**Seção de Metodologia:**
-
-> "Este estudo comparou um Algoritmo Genético com e sem elitismo em três níveis de dimensionalidade (10D, 30D, 50D). Para cada configuração, foi utilizado seed=42 para garantir populações iniciais idênticas e isolamento da variável independente (elitismo). Cada teste foi executado uma única vez, resultando em 6 execuções totais com 600 gerações processadas. Embora a amostra seja pequena (N=1 por configuração), o controle experimental permite atribuir diferenças exclusivamente ao efeito do elitismo."
-
-**Seção de Resultados:**
-
-> "A Figura X mostra as trajetórias de convergência para cada teste. Com elitismo, observou-se [padrão X]. Sem elitismo, observou-se [padrão Y]. O fitness final foi de [valor] com elitismo vs [valor] sem elitismo, uma diferença de [magnitude]."
-
-**Seção de Limitações:**
-
-> "Esta análise apresenta limitações significativas: (1) apenas uma execução por configuração, impossibilitando análise estatística; (2) resultados limitados ao seed=42, não generalizáveis a outras sementes aleatórias; (3) amostra muito pequena para conclusões robustas. Estudos futuros devem incorporar múltiplas sementes (N≥30) com análise estatística rigorosa para validar os achados iniciais."
-
 ---
 
 **Versão**: 5.0 (Refatorada - Experimento Completamente Executado)  
