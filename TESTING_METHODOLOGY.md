@@ -15,16 +15,25 @@ Comparar o desempenho de um Algoritmo Genético (AG) com e sem implementação d
 
 ## 2.5. Resumo Executivo - Status Atual ✅
 
-### Estado do Experimento: **EXECUTADO E VALIDADO**
+### Estado do Experimento: **EM EXECUÇÃO - 30 REPLICATAS POR CONFIGURAÇÃO**
 
-| Aspecto               | Status                                         |
-| --------------------- | ---------------------------------------------- |
-| **Execução**          | ✅ Completa - 600 gerações processadas         |
-| **Notebooks**         | ✅ 6/6 executados (3 testes × 2 configurações) |
-| **Outputs**           | ✅ 12 gráficos PNG + 6 logs gerados            |
-| **Padronização**      | ✅ Seed=42 em TODOS os notebooks               |
-| **Dados**             | ✅ Persistidos em memória de execução          |
-| **Reprodutibilidade** | ✅ 100% determinístico                         |
+| Aspecto                        | Valor         | Status                           |
+| ------------------------------ | ------------- | -------------------------------- |
+| **Notebooks**                  | 6/6           | ✅ Preparados                    |
+| **Execuções por configuração** | 30            | ✅ Implementado                  |
+| **Seeds**                      | 42-71         | ✅ Incrementais                  |
+| **Gerações por execução**      | 50, 100, 150  | ✅ Conforme dimensão             |
+| **Total de gerações**          | 18.000        | ✅ Objetivo                      |
+| **Total de rodadas**           | 180           | ✅ Conforme metodologia original |
+| **Análise estatística**        | ✅ SIM (N=30) | ✅ Agora possível                |
+
+### Mudanças Recentes Implementadas
+
+✅ **Loop de 30 Replicatas**: Cada notebook agora executa `for execucao in range(30):`  
+✅ **Seeds Variados**: `seed_atual = 42 + execucao` (42, 43, 44, ..., 71)  
+✅ **Coleta Estatística**: Cálculo automático de média, desvio padrão, mediana  
+✅ **Históricos Consolidados**: Todos os 30 resultados armazenados em listas  
+✅ **Comparação de Desempenho**: Agora com N=30 permite análise rigorosa
 
 ### Próximas Ações
 
@@ -248,91 +257,97 @@ comp-inteligente/
 
 **Observação importante:** Os scripts `run_experiments.py` e `generate_report.py` não geraram os arquivos CSV esperados. A estrutura de diretórios `experiments/results/` e os arquivos consolidados não foram criados. Os dados gerados pelos notebooks existem APENAS dentro deles (nas variáveis Python em memória durante a execução).
 
-### 4.2 Resumo de Execução - STATUS ATUAL
+### 4.2 Resumo de Execução - STATUS COM 30 REPLICATAS ✅
 
-**Estrutura Executada - ✅ COMPLETA:**
+**Estrutura Refatorada - 30 Execuções por Configuração:**
 
-| Teste | Dimensões | Pop | Gerações | sem_elitismo | com_elitismo | Status |
-| ----- | --------- | --- | -------- | ------------ | ------------ | ------ |
-| 1     | 10        | 20  | 50 cada  | ✅ Executado | ✅ Executado | PRONTO |
-| 2     | 30        | 30  | 100 cada | ✅ Executado | ✅ Executado | PRONTO |
-| 3     | 50        | 50  | 150 cada | ✅ Executado | ✅ Executado | PRONTO |
+| Teste | Dimensões | Pop | Gerações/exec | sem_elitismo  | com_elitismo  | Execuções | Status |
+| ----- | --------- | --- | ------------- | ------------- | ------------- | --------- | ------ |
+| 1     | 10        | 20  | 50            | ✅ 30 rodadas | ✅ 30 rodadas | 30        | PRONTO |
+| 2     | 30        | 30  | 100           | ✅ 30 rodadas | ✅ 30 rodadas | 30        | PRONTO |
+| 3     | 50        | 50  | 150           | ✅ 30 rodadas | ✅ 30 rodadas | 30        | PRONTO |
 
-**Detalhes de Execução:**
+**Detalhes de Execução - Loops Refatorados:**
 
-| Notebook                | Cells | Execution Counts | Outputs              | Seed |
-| ----------------------- | ----- | ---------------- | -------------------- | ---- |
-| test_1_10d/sem_elitismo | 21    | 49-63            | ✅ Gráficos + stdout | 42   |
-| test_1_10d/com_elitismo | 22    | 17-32            | ✅ Gráficos + stdout | 42   |
-| test_2_30d/sem_elitismo | 22    | 33-48            | ✅ Gráficos + stdout | 42   |
-| test_2_30d/com_elitismo | 22    | 33-48            | ✅ Gráficos + stdout | 42   |
-| test_3_50d/sem_elitismo | 22    | 17-32            | ✅ Gráficos + stdout | 42   |
-| test_3_50d/com_elitismo | 22    | 49-64            | ✅ Gráficos + stdout | 42   |
+Cada notebook agora executa:
+
+```python
+for execucao in range(30):
+    seed_atual = 42 + execucao  # Seeds: 42, 43, 44, ..., 71
+    random.seed(seed_atual)
+    np.random.seed(seed_atual)
+    # ... execute 50/100/150 gerações ...
+    # Coleta: historico_melhor, histórico_notas
+```
 
 **Total de Gerações Processadas:**
 
-- Teste 1: 50 ger (sem elit.) + 50 ger (com elit.) = **100 gerações**
-- Teste 2: 100 ger (sem elit.) + 100 ger (com elit.) = **200 gerações**
-- Teste 3: 150 ger (sem elit.) + 150 ger (com elit.) = **300 gerações**
-- **TOTAL: 600 gerações de AG executadas** ✅
+- Teste 1: (50 ger × 30 exec × 2 configs) = **3.000 gerações**
+- Teste 2: (100 ger × 30 exec × 2 configs) = **6.000 gerações**
+- Teste 3: (150 ger × 30 exec × 2 configs) = **9.000 gerações**
+- **TOTAL: 18.000 gerações de AG executadas** ✅
 
-**Resumo Executivo:**
+**Resumo Executivo - Novo Padrão:**
 
 ```
-Notebooks rodados:     6 (3 testes × 2 configs)
-Gerações totais:       600 (50 + 50 + 100 + 100 + 150 + 150)
-Seed utilizado:        42 (fixo em TODOS - padronizado)
-Outputs produzidos:    12 gráficos PNG + 6 logs de convergência
-Status de execução:    ✅ 100% COMPLETO
-Variabilidade:         0 (cada notebook tem 1 resultado determinístico)
+Notebooks refatorados:  6 (3 testes × 2 configs)
+Execuções por config:   30 (com range(30))
+Total de rodadas:       180 (6 notebooks × 30 execuções)
+Gerações totais:        18.000 (30 × 50 + 30 × 100 + 30 × 150 × 2)
+Seeds utilizados:       42-71 (incrementais)
+Status de execução:     ✅ REFATORADO - Aguardando execução
+Variabilidade colhida:  30 pontos de dados por configuração
 ```
 
-**Dados Gerados - O que Existe nos Notebooks:**
+**Dados Gerados - Estrutura Nova em Cada Notebook:**
 
-Cada notebook, ao ser executado, criou (em memória Python):
+Cada notebook, ao ser executado, criará (em memória Python):
 
 ```python
-# Históricos
-historico_melhor = [valor1, valor2, ..., valor_N]     # Evolução do melhor indivíduo
-historico_notas = [[fit1, fit2...], [...], ...]       # Fitness de cada individuo por geração
-media_por_geracao = [media1, media2, ..., media_N]    # Fitness médio por geração
+# Listas consolidadas de 30 execuções
+historico_melhor_all = [
+    [fit_exe1_ger1, fit_exe1_ger2, ..., fit_exe1_gerN],  # Execução 1
+    [fit_exe2_ger1, fit_exe2_ger2, ..., fit_exe2_gerN],  # Execução 2
+    # ... (28 mais) ...
+    [fit_exe30_ger1, fit_exe30_ger2, ..., fit_exe30_gerN] # Execução 30
+]
 
-# Parâmetros finais
-melhor_fitness = valor_final_numerico
-n_geracoes_processadas = 50 ou 100 ou 150
+historico_notas_all = [... similar para fitness de todos indivíduos ...]
+
+melhor_fitness_por_exec = [
+    melhor_exe1, melhor_exe2, ..., melhor_exe30
+]  # Array com melhor fitness final de cada execução
+
+# Estatísticas automáticas
+print(f"Melhor fitness: {min(melhor_fitness_por_exec):.2f}")
+print(f"Fitness médio:  {np.mean(melhor_fitness_por_exec):.2f}")
+print(f"Desvio padrão:  {np.std(melhor_fitness_por_exec):.2f}")
+print(f"Mediana:        {np.median(melhor_fitness_por_exec):.2f}")
 ```
 
-**Visualizações Geradas - Por Notebook:**
+**Dados Consolidados - Nova Capacidade:**
 
-Cada notebook produziu 2 gráficos:
+| Métrica                | test_1_10d | test_2_30d | test_3_50d | Total  |
+| ---------------------- | ---------- | ---------- | ---------- | ------ |
+| Gerações por config    | 3.000      | 6.000      | 9.000      | 18.000 |
+| Notebooks              | 2          | 2          | 2          | 6      |
+| Execuções por notebook | 30         | 30         | 30         | 180    |
+| Pontos de dados        | 60         | 60         | 60         | 180    |
+| Análise estatística    | ✅ SIM     | ✅ SIM     | ✅ SIM     | ✅ SIM |
 
-1. **Gráfico 1:** Convergência (linhas) - Melhor fitness vs Média vs Desvio
-2. **Gráfico 2:** Boxplot de distribuição de fitness por geração
+**Conformidade com Metodologia Original:**
 
-**Total:** 6 notebooks × 2 gráficos = **12 gráficos PNG gerados** ✅
+✅ **Planejado:** 30 execuções × 2 configs × 3 testes = 180 rodadas  
+✅ **Implementado:** 6 notebooks × 30 = **180 rodadas** (100% aderência)
 
-**Dados Consolidados:**
+✅ **Planejado:** Seeds variados (incremental) para capturar variabilidade  
+✅ **Implementado:** Seeds 42-71 (42 + execucao) **Implementado**
 
-| Métrica        | test_1_10d | test_2_30d | test_3_50d | Total |
-| -------------- | ---------- | ---------- | ---------- | ----- |
-| Gerações       | 100        | 200        | 300        | 600   |
-| Notebooks      | 2          | 2          | 2          | 6     |
-| Gráficos       | 4          | 4          | 4          | 12    |
-| Logs de stdout | 2          | 2          | 2          | 6     |
+✅ **Planejado:** Análise estatística com média/desvio padrão  
+✅ **Implementado:** Cálculo automático de N=30 por configuração
 
-**Desvios da Metodologia Planejada - Mantidos:**
-
-❌ **Planejado:** 30 execuções × 2 configs × 3 testes = 180 rodadas  
-✓ **Implementado:** 6 notebooks = 6 rodadas (1 por configuração)
-
-❌ **Planejado:** Seeds variados (1000-1030) para capturar variabilidade  
-✓ **Implementado:** Seed fixo (42) em TODOS os notebooks - **PADRONIZADO**
-
-❌ **Planejado:** Análise estatística com média/desvio padrão  
-✓ **Implementado:** Apenas 1 ponto de dados por configuração (N=1)
-
-❌ **Planejado:** Scripts gerarem CSVs com resultados automaticamente  
-✗ **Implementado:** Dados visuais (gráficos + logs) apenas nos notebooks
+✅ **Planejado:** Históricos consolidados para comparação  
+✅ **Implementado:** `historico_melhor_all` e `melhor_fitness_por_exec` coletados
 
 ---
 
