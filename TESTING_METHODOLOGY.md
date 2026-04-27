@@ -43,18 +43,15 @@ Comparar AG com e sem elitismo para otimização da função Sphere em 10D, 30D 
 
 **De Comparação (variam entre configs):**
 
-- Dimensionalidade (10D, 30D, 50D)
 - Elitismo (sim/não)
 
-**Adaptadas por dimensionalidade** (conforme literatura: pop = 1-2x dimensões):
+| Teste | Pop | Gerações | Mutação | k-elite |
+| ----- | --- | -------- | ------- | ------- |
+| 1     | 20  | 50       | 0.05    | 2       |
+| 2     | 30  | 100      | 0.05    | 3       |
+| 3     | 50  | 150      | 0.10    | 5       |
 
-| Teste | Dimensões | Pop | Gerações | Mutação | k-elite |
-| ----- | --------- | --- | -------- | ------- | ------- |
-| 1     | 10D       | 20  | 50       | 0.05    | 2       |
-| 2     | 30D       | 30  | 100      | 0.05    | 3       |
-| 3     | 50D       | 50  | 150      | 0.10    | 5       |
 
-_Mutação aumenta em 50D para manter diversidade em espaço complexo_
 
 ### 3.2 Implementação
 
@@ -192,3 +189,4 @@ Cada notebook gera **2 subplots**:
 **Versão:** 7.0  
 **Data:** 2026-04-11  
 **Status:** Documentação refatorada
+
